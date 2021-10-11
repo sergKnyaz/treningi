@@ -110,7 +110,9 @@ textRecord.place(x=10,y=570)
 Label(root,bg=back,fg=fore,text='Сложность: ').place(x=267,y=550)
 
 itemDiff=['Новичек','В теме','Бывалый','Профи','Асс','Супер асс']
+
 diffCombobox=ttk.Combobox(root,width=18,values=itemDiff,state='readonly')
+diffCombobox=ttk.Combobox(root,width=20,values=itemDiff,state='readonly')
 diffCombobox.place(x=270,y=570)
 diffCombobox.bind('<<ComboboxSelected>>',lambda e: refreshText())
 diffCombobox.current(0)
