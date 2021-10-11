@@ -137,8 +137,8 @@ imageBackground1=[]
 imageBackground2=[]
 
 for name in fileName:
-    imageBackground1.append(PhotoImage(file='image1'+name))
-    imageBackground2.append(PhotoImage(file='image2'+name))
+    imageBackground1.append(PhotoImage(file='image01/'+name))
+    imageBackground2.append(PhotoImage(file='image02/'+name))
 # пустой спраит
 blackImg=16
 imageBackground=imageBackground1
