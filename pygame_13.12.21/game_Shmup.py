@@ -1,4 +1,4 @@
-# Pygame добавление спрайта в виде квадрата
+# https://pythonru.com/primery/streljalka-s-pygame-1-sprajt-igroka-i-upravlenie
 
 import random
 import pygame
@@ -13,6 +13,7 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
 
 
 class Player(pygame.sprite.Sprite):
@@ -41,6 +42,25 @@ class Player(pygame.sprite.Sprite):
         if self.rect.right > WIDTH: self.rect.right = WIDTH
         if self.rect.left < 0: self.rect.left = 0
 
+class Mob(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((30, 40))  # создадим квадрат размером 50х50
+        self.image.fill(RED)  # и заполним его  цветом
+        self.rect = self.image.get_rect()
+        self.rect.x=random.randrange(WIDTH-self.rect.width)
+        self.rect.y=random.randrange(-100,-40)
+        self.speed=random.randrange(1,8)
+        self.speedx = random.randrange(-3, 3)
+
+    def update(self):
+        self.rect.x += self.speedx
+        self.rect.y+=self.speed
+        if self.rect.top > HEIGHT+10 or self.rect.left < -25 or self.rect.right > WIDTH + 20:
+            self.rect.x=random.randrange(WIDTH-self.rect.width)
+            self.rect.y=random.randrange(-100,-40)
+            self.speed=random.randrange(1,8)    
+
 # Создаем игру и окно
 pygame.init()  # это команда, которая запускает pygame
 pygame.mixer.init()  # для звука
@@ -51,8 +71,14 @@ clock = pygame.time.Clock()  # Дальше необходимо создать 
 # работает с заданной частотой кадров.
 
 all_sprites = pygame.sprite.Group()  # создавать группу спрайтов в игре
+mobs=pygame.sprite.Group()
 player = Player()
 all_sprites.add(player)  # добавить спрайт в группу all_sprites.
+for i in range(8):
+    m=Mob()
+    all_sprites.add(m)
+    mobs.add(m)
+
 
 # Цикл игры
 running = True
